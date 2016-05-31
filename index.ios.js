@@ -8,6 +8,7 @@ const {
   Navigator,
   NavigatorIOS,
   ScrollView,
+  Dimensions,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -15,6 +16,7 @@ const {
   TextInput,
 } = ReactNative;
 
+import Camera from 'react-native-camera';
 import Countdown from "./Countdown";
 
 var {AudioRecorder, AudioUtils} = require('react-native-audio');
@@ -25,7 +27,7 @@ class MSP extends React.Component{
     return (
       <Navigator
         style={styles.container}
-        initialRoute={{id: 'splash', index: 0}}
+        initialRoute={{id: 'splashpage', index: 0}}
         renderScene={this.navigatorRenderScene}/>
     );
   }
@@ -33,12 +35,12 @@ class MSP extends React.Component{
   navigatorRenderScene(route, navigator) {
     var _navigator = navigator;
     switch (route.id) {
-      case 'splash':
-        return (<SplashPage navigator={navigator} title="first"/>);
-      case 'second':
-        return (<Second navigator={navigator} title="second"/>);
-      case 'third':
-        return (<Third navigator={navigator} title="third"/>);
+      case 'splashpage':
+        return (<SplashPage navigator={navigator} title="Splash Page"/>);
+      case 'audiorecord':
+        return (<AudioRecord navigator={navigator} title="Audio Record"/>);
+      case 'takepictures':
+        return (<TakePictures navigator={navigator} title="Take Pictures"/>);
     }
   }
 }
@@ -46,7 +48,7 @@ class MSP extends React.Component{
 class SplashPage extends React.Component{
   navSecond(){
     this.props.navigator.push({
-      id: 'second'
+      id: 'audiorecord'
     })
   }
   render() {
@@ -64,7 +66,7 @@ class SplashPage extends React.Component{
   }
 }
 
-class Second extends React.Component{
+class AudioRecord extends React.Component{
   constructor(props) {
 
     super(props);
@@ -106,6 +108,7 @@ class Second extends React.Component{
 
   handleEnd() {
     this.setState({countdownStarted: false});
+    //stop the audio
     this._stop();
   }
 
@@ -169,6 +172,11 @@ class Second extends React.Component{
       this.setState({playing: false, stoppedPlaying: true});
     }
     this.setState({countdownStarted: false});
+
+    //todo: we should move them to takePictures
+    this.props.navigator.push({
+      id: 'takepictures'
+    })
   }
 
   _record() {
@@ -187,7 +195,7 @@ class Second extends React.Component{
   }
 };
 
-class CameraPage extends React.Component{
+class TakePictures extends React.Component{
   navSecond(){
     this.props.navigator.push({
       id: 'third'
@@ -196,15 +204,22 @@ class CameraPage extends React.Component{
   render() {
     return (
       <View style={styles.container}>
-        <TouchableHighlight onPress={this.navSecond.bind(this)}>
-          <Text>Continue</Text>
-        </TouchableHighlight>
-        <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-          keyboardType="numeric"
-        />
+        <Camera
+          ref={(cam) => {
+            this.camera = cam;
+          }}
+          style={styles.preview}
+          aspect={Camera.constants.Aspect.fill}>
+          <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>
+        </Camera>
       </View>
     );
+  }
+
+  takePicture() {
+    this.camera.capture()
+      .then((data) => console.log(data))
+      .catch(err => console.error(err));
   }
 }
 
@@ -258,6 +273,21 @@ var styles = StyleSheet.create({
     width: 100,
     height: 100,
   },
+  preview: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width
+  },
+  capture: {
+    flex: 0,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    color: '#000',
+    padding: 10,
+    margin: 40
+  }
 });
 
 class CountdownOverlay extends React.Component {
