@@ -11,6 +11,7 @@ const {
   Dimensions,
   StyleSheet,
   Text,
+  Image,
   TouchableHighlight,
   View,
   TextInput,
@@ -54,13 +55,32 @@ class SplashPage extends React.Component{
   render() {
     return (
       <View style={styles.container}>
-        <TouchableHighlight onPress={this.navSecond.bind(this)}>
-          <Text>Continue</Text>
-        </TouchableHighlight>
-        <TextInput
-          style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-          keyboardType="numeric"
-        />
+        <Image source={require('./img/see28.jpg')} style={styles.backgroundImage} >
+          <View style={styles.halfcolumncontainer}>
+            <View style={styles.halfcolumn}>
+              <Text></Text>
+            </View>
+            <View style={styles.halfcolumn, styles.whitebackground}>
+              <View style={styles.wrapText}>
+                <Text>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                  sed do eiusmod tempor incididunt ut labore et dolore magna
+                  aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                  ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  Duis aute irure dolor in reprehenderit in voluptate veli
+                </Text>
+              </View>
+              <TextInput
+                style={styles.phonenumber}
+                keyboardType="numeric"
+                />
+              <TouchableHighlight onPress={this.navSecond.bind(this)}>
+                <Text>Continue</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+        </Image>
+
       </View>
     );
   }
@@ -209,6 +229,8 @@ class TakePictures extends React.Component{
             this.camera = cam;
           }}
           style={styles.preview}
+          type="front"
+          orientation="auto"
           aspect={Camera.constants.Aspect.fill}>
           <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>
         </Camera>
@@ -216,11 +238,18 @@ class TakePictures extends React.Component{
     );
   }
 
+  takePictureTimer(){
+    for (var i = 0; i < 5; i++) {
+      var pictureTimer = setTimeout(this.takePicture(this.camera) , 1000)
+      this.takePicture();
+    }
+  }
+
   takePicture() {
     this.camera.capture()
-      .then((data) => console.log(data))
-      .catch(err => console.error(err));
-  }
+        .then((data) => console.log(data))
+        .catch(err => console.error(err));
+      }
 }
 
 class Foo extends React.Component {
@@ -258,7 +287,41 @@ class Foo extends React.Component {
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
+    flexDirection:'row'
+    //backgroundColor: '#C9C9C9',
+  },
+  backgroundImage:{
+    flex:1,
+    resizeMode:'stretch'
+  },
+  whitebackground:{
+    backgroundColor: 'rgba(255,255,255,0.9)',
+  },
+  halfcolumncontainer:{
+    flexDirection:'row'
+  },
+  wrapText:{
+    flexDirection:'column',
+    width:200
+  },
+  halfcolumn:{
+    width:200,
+    flexWrap:'wrap',
+    flexDirection:'row'
+  },
+  phonenumberContainer:{
+    //flex:1,
+    backgroundColor:'#CCCCCC',
+    width:500,
+    padding:25,
+    margin:25
+  },
+  phonenumber: {
+    width:200,
+    height:50,
+    borderColor: '#000000',
+    borderWidth: 1,
+    margin:25,
   },
   button: {
     height: 32,
