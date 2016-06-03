@@ -51,7 +51,7 @@ var Countdown = React.createClass({
 })
 
 Countdown.defaultProps = {
-  count: 5,
+  count: 15,
   onComplete: function () {}
 }
 

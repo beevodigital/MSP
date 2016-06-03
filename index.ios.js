@@ -128,6 +128,10 @@ class AudioRecord extends React.Component{
       this.setState({finished: data.finished});
       console.log(`Finished recording: ${data.finished}`);
     };
+
+    //start recording onLoad
+    //turning this off for testing
+    this._record();
   }
 
   handleEnd() {
@@ -148,32 +152,41 @@ class AudioRecord extends React.Component{
 
   render() {
     return (
-      <View style={styles.container}>
-        {this._renderButton("BEGIN", () => {this._record()}, this.state.recording )}
-        {this._renderButton("STOP", () => {this._stop()} )}
+      <View style={styles.container, styles.recordingContainer}>
+        <View style={styles.recordingCTA}>
 
-        <Text style={styles.progressText}>{this.state.currentTime}s</Text>
+          {this._renderButton("STOP", () => {this._stop()},styles.stopText )}
 
-        { this.state.countdownStarted
-            ? (<Countdown ref={(c) => { this.countdown = c }} onComplete={this.handleEnd}>
-                <CountdownOverlay />
-              </Countdown>)
-            : null }
-        <TouchableHighlight onPress={this.handleClick}>
-          <Text>Start Countdown</Text>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this.addTwoSeconds}>
-          <Text>Add 30 Seconds</Text>
-        </TouchableHighlight>
+          { this.state.countdownStarted
+              ? (<Countdown ref={(c) => { this.countdown = c }} onComplete={this.handleEnd}>
+                  <CountdownOverlay />
+                </Countdown>)
+              : null }
+        </View>
       </View>
     );
   }
 
-  _renderButton(title, onPress, active) {
-    var style = (active) ? styles.activeButtonText : styles.buttonText;
+/*
 
-    return (<TouchableHighlight style={styles.button} onPress={onPress}>
-      <Text style={style}>
+{this._renderButton("BEGIN", () => {this._record()}, this.state.recording )}
+
+<TouchableHighlight onPress={this.handleClick}>
+  <Text>Start Countdown</Text>
+</TouchableHighlight>
+<TouchableHighlight onPress={this.addTwoSeconds}>
+  <Text>Add 30 Seconds</Text>
+</TouchableHighlight>
+
+{this._renderButton(this.state.currentTime, () => {this._stop()} )}
+
+*/
+
+_renderButton(title, onPress, stylePass) {
+    var style = styles.recordText;
+
+    return (<TouchableHighlight onPress={onPress}>
+      <Text style={style, stylePass}>
         {title}
       </Text>
     </TouchableHighlight>);
@@ -218,6 +231,16 @@ class AudioRecord extends React.Component{
     this.setState({playing: true});
   }
 };
+
+class CountdownOverlay extends React.Component {
+  render() {
+    return(
+      <View >
+        <Text style={styles.recordText}>{this.props.count}</Text>
+      </View>
+    )
+  }
+}
 
 class TakePictures extends React.Component{
   navSecond(){
@@ -289,6 +312,33 @@ class Foo extends React.Component {
 }
 
 var styles = StyleSheet.create({
+  //audioRecord styles
+  recordingContainer:{
+    backgroundColor:'#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop:50
+  },
+  recordingCTA:{
+    borderColor:'#FF0000',
+    borderWidth:4,
+    width:200,
+    height:200,
+    borderRadius: 200/2,
+    paddingTop:75
+  },
+  recordText:{
+    textAlign:'center',
+    color:'#FF0000',
+    fontWeight:'bold'
+  },
+
+  stopText:{
+    textAlign:'center',
+    color:'#FF0000',
+    fontWeight:'bold',
+    fontSize:40
+  },
   container: {
     flex: 1,
     flexDirection:'row'
@@ -375,15 +425,7 @@ var styles = StyleSheet.create({
   }
 });
 
-class CountdownOverlay extends React.Component {
-  render() {
-    return(
-      <View style={{flex: 1}}>
-        <Text>{this.props.count}</Text>
-      </View>
-    )
-  }
-}
+
 
 
 class CountdownTestApp extends React.Component {
