@@ -62,21 +62,25 @@ class SplashPage extends React.Component{
             </View>
             <View style={styles.halfcolumn, styles.whitebackground}>
               <View style={styles.wrapText}>
-                <Text>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                  sed do eiusmod tempor incididunt ut labore et dolore magna
-                  aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                  ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  Duis aute irure dolor in reprehenderit in voluptate veli
+                <Text style={styles.mainFont}>
+                  Welcome to arts@msp's storyBooth, part of the see18 (multimedia|story|performance) installation.{"\n"}{"\n"}
+                </Text>
+                <Text style={styles.mainFont}>
+                  This space provides you the opportunity to record a 5 minute recollection of travel
+                </Text>
+                <TextInput
+                  style={styles.phonenumber}
+                  keyboardType="numeric"
+                  placeholder="111-222-3333"
+                  />
+                <TouchableHighlight onPress={this.navSecond.bind(this)} style={styles.recordButtonContainer}>
+                  <Text style={styles.recordButton}>Start Recording</Text>
+                </TouchableHighlight>
+                <Text style={styles.mainFont}>
+                  By leaving your story, arts@msp will retain the rights to curate your images and stories in future exhibits and for promotional purposes
                 </Text>
               </View>
-              <TextInput
-                style={styles.phonenumber}
-                keyboardType="numeric"
-                />
-              <TouchableHighlight onPress={this.navSecond.bind(this)}>
-                <Text>Continue</Text>
-              </TouchableHighlight>
+
             </View>
           </View>
         </Image>
@@ -290,12 +294,19 @@ var styles = StyleSheet.create({
     flexDirection:'row'
     //backgroundColor: '#C9C9C9',
   },
+  mainFont:{
+    fontSize:10,
+    textAlign:'center'
+  },
   backgroundImage:{
     flex:1,
     resizeMode:'stretch'
   },
   whitebackground:{
     backgroundColor: 'rgba(255,255,255,0.9)',
+    height:300,
+    margin:10,
+    padding:10
   },
   halfcolumncontainer:{
     flexDirection:'row'
@@ -305,7 +316,7 @@ var styles = StyleSheet.create({
     width:200
   },
   halfcolumn:{
-    width:200,
+    flex:1,
     flexWrap:'wrap',
     flexDirection:'row'
   },
@@ -318,10 +329,21 @@ var styles = StyleSheet.create({
   },
   phonenumber: {
     width:200,
-    height:50,
+    height:25,
     borderColor: '#000000',
     borderWidth: 1,
-    margin:25,
+    marginTop:20,
+    marginBottom:20
+  },
+  recordButtonContainer:{
+    borderColor:'#FF0000',
+    borderWidth:2,
+    marginBottom:20
+  },
+  recordButton:{
+    textAlign:'center',
+    color:'#FF0000',
+    padding:5
   },
   button: {
     height: 32,
