@@ -23,6 +23,8 @@ import Countdown from "./Countdown";
 var {AudioRecorder, AudioUtils} = require('react-native-audio');
 const timer = require('react-native-timer');
 
+var SplashPage = require('./SplashPage');
+
 class MSP extends React.Component{
   render() {
     return (
@@ -48,6 +50,7 @@ class MSP extends React.Component{
   }
 }
 
+/*
 class SplashPage extends React.Component{
   navSecond(){
     this.props.navigator.push({
@@ -91,8 +94,7 @@ class SplashPage extends React.Component{
     );
   }
 }
-
-class AudioRecord extends React.Component{
+*/class AudioRecord extends React.Component{
   constructor(props) {
 
     super(props);

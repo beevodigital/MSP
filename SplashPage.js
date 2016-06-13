@@ -1,5 +1,3 @@
-'use strict';
-
 const React = require('react');
 const ReactNative = require('react-native');
 const {
@@ -23,6 +21,7 @@ class SplashPage extends React.Component{
       id: 'audiorecord'
     })
   }
+  
   render() {
     return (
       <View style={styles.container}>
@@ -60,3 +59,8 @@ class SplashPage extends React.Component{
     );
   }
 }
+
+var styles = StyleSheet.create({
+});
+
+module.exports = SplashPage;
