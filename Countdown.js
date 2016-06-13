@@ -40,12 +40,30 @@ var Countdown = React.createClass({
     clearInterval(this.interval)
   },
 
+  formatSeconds:function(){
+    var minutes = "";
+    var seconds = this.state.count % 60;
+
+    if((parseInt( this.state.count / 60 ) % 60) > 0)
+    {
+      minutes = parseInt( this.state.count / 60 ) % 60 + ":";
+    }
+
+    if(this.state.count % 60 < 10)
+    {
+      seconds = "0" + (this.state.count % 60);
+    }
+
+    return minutes + seconds;
+  },
+
   render: function () {
     if (!this.props.children) {
       throw new Error("No child supplied to <Countdown>!")
     }
     return React.cloneElement(this.props.children, {
-      count: this.state.count
+      count: this.formatSeconds()
+      //count: (parseInt( this.state.count / 60 ) % 60) + ':' + (this.state.count % 60)
     })
   }
 })

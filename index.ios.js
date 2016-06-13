@@ -42,6 +42,8 @@ class MSP extends React.Component{
         return (<AudioRecord navigator={navigator} title="Audio Record"/>);
       case 'takepictures':
         return (<TakePictures navigator={navigator} title="Take Pictures"/>);
+      case 'thankyoupage':
+        return (<ThankYouPage navigator={navigator} title="Thank You"/>);
     }
   }
 }
@@ -120,6 +122,7 @@ class AudioRecord extends React.Component{
     var d = new Date();
     var n = d.getSeconds();
     var audioPath = AudioUtils.DocumentDirectoryPath + '/' + n + 'test.caf';
+    console.log(audioPath);
     AudioRecorder.prepareRecordingAtPath(audioPath);
     AudioRecorder.onProgress = (data) => {
       this.setState({currentTime: Math.floor(data.currentTime)});
@@ -137,6 +140,7 @@ class AudioRecord extends React.Component{
   handleEnd() {
     this.setState({countdownStarted: false});
     //stop the audio
+    console.log('testing');
     this._stop();
   }
 
@@ -158,8 +162,8 @@ class AudioRecord extends React.Component{
           {this._renderButton("STOP", () => {this._stop()},styles.stopText )}
 
           { this.state.countdownStarted
-              ? (<Countdown ref={(c) => { this.countdown = c }} onComplete={this.handleEnd}>
-                  <CountdownOverlay />
+              ? (<Countdown ref={(c) => { this.countdown = c }} onComplete={this.handleEnd} count={300}>
+                  <CountdownOverlay countdownText={styles.recordText}/>
                 </Countdown>)
               : null }
         </View>
@@ -235,19 +239,67 @@ _renderButton(title, onPress, stylePass) {
 class CountdownOverlay extends React.Component {
   render() {
     return(
-      <View >
-        <Text style={styles.recordText}>{this.props.count}</Text>
+      <View>
+        <Text style={this.props.countdownText}>{this.props.count}</Text>
       </View>
     )
   }
 }
 
 class TakePictures extends React.Component{
+  constructor(props) {
+
+    super(props);
+    this.handleEnd = this.handleEnd.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.addTwoSeconds = this.addTwoSeconds.bind(this);
+    this.state = {
+      currentTime: 0.0,
+      recording: false,
+      stoppedRecording: false,
+      stoppedPlaying: false,
+      playing: false,
+      finished: false,
+      countdownStarted: false,
+      //uploading: false,
+      //showUploadModal: false,
+      //uploadProgress: 0,
+      //uploadTotal: 0,
+      //uploadWritten: 0,
+      //uploadStatus: undefined,
+      //cancelled: false,
+      //images: [],
+    }
+
+  }
+
+  componentDidMount() {
+      this.handleClick();
+  }
+
   navSecond(){
     this.props.navigator.push({
       id: 'third'
     })
   }
+
+  handleEnd() {
+    this.setState({countdownStarted: false});
+    //stop the audio
+    console.log('testing');
+    this.takePicture();
+  }
+
+  handleClick() {
+    this.setState({countdownStarted: true});
+  }
+
+  addTwoSeconds () {
+    if (this.countdown) {
+      this.countdown.addTime(30)
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -257,14 +309,23 @@ class TakePictures extends React.Component{
           }}
           style={styles.preview}
           type="front"
-          orientation="auto"
-          aspect={Camera.constants.Aspect.fill}>
-          <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>
+          orientation={Camera.constants.Orientation.auto}
+          aspect={Camera.constants.Aspect.fit}
+          captureTarget={Camera.constants.CaptureTarget.disk}>
+
+          <View style={styles.takingPicturesCTA}>
+            <Text style={styles.takingPicureText}>Get Ready! Smile!</Text>
+            { this.state.countdownStarted
+                ? (<Countdown ref={(c) => { this.countdown = c }} onComplete={this.handleEnd} count={15}>
+                    <CountdownOverlay countdownText={styles.takingPictureCountdownText}/>
+                  </Countdown>)
+                : null }
+          </View>
         </Camera>
       </View>
     );
   }
-
+//<Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>
   takePictureTimer(){
     for (var i = 0; i < 5; i++) {
       var pictureTimer = setTimeout(this.takePicture(this.camera) , 1000)
@@ -273,10 +334,56 @@ class TakePictures extends React.Component{
   }
 
   takePicture() {
+    console.log('taking picture');
     this.camera.capture()
         .then((data) => console.log(data))
         .catch(err => console.error(err));
+    this.camera.capture()
+        .then((data) => console.log(data))
+        .catch(err => console.error(err));
+    this.camera.capture()
+        .then((data) => console.log(data))
+        .catch(err => console.error(err));
+
+    this.props.navigator.push({
+      id: 'splashpage'
+    })
+
       }
+
+}
+
+class ThankYouPage extends React.Component{
+  render() {
+    return (
+      <View style={styles.container}>
+        <Image source={require('./img/see28.jpg')} style={styles.backgroundImage} >
+          <View style={styles.halfcolumncontainer}>
+            <View style={styles.halfcolumn}>
+              <Text></Text>
+            </View>
+            <View style={styles.halfcolumn, styles.whitebackground}>
+              <View style={styles.wrapText}>
+                <Text style={styles.mainFont}>
+                  THANKS!{"\n"}{"\n"}
+                </Text>
+                <Text style={styles.mainFont}>
+                  THANKS
+                </Text>
+
+
+                <Text style={styles.mainFont}>
+                  By leaving your story, arts@msp will retain the rights to curate your images and stories in future exhibits and for promotional purposes
+                </Text>
+              </View>
+
+            </View>
+          </View>
+        </Image>
+
+      </View>
+    );
+  }
 }
 
 class Foo extends React.Component {
@@ -330,19 +437,61 @@ var styles = StyleSheet.create({
   recordText:{
     textAlign:'center',
     color:'#FF0000',
-    fontWeight:'bold'
+    fontWeight:'bold',
+    //backgroundColor:'#FFF000',
+    marginLeft:15,
+    marginRight:15
+    //width:50
   },
-
+  recordTextContainer:{
+    //width:50
+  },
   stopText:{
     textAlign:'center',
     color:'#FF0000',
     fontWeight:'bold',
     fontSize:40
   },
+
+  //end of record styles
+
+  //take picture styles
+  takingPicturesCTA:{
+    borderColor:'#00ff00',
+    borderWidth:4,
+    width:200,
+    height:200,
+    borderRadius: 200/2,
+    paddingTop:75
+  },
+  takingPicureText:{
+    textAlign:'center',
+    color:'#00ff00',
+    fontWeight:'bold',
+    //backgroundColor:'#FFF000',
+    marginLeft:15,
+    marginRight:15
+    //width:50
+  },
+  takingPictureCountdownText:{
+    textAlign:'center',
+    color:'#00ff00',
+    fontWeight:'bold',
+    //backgroundColor:'#FFF000',
+    marginLeft:15,
+    marginRight:15
+    //width:50
+  },
+
+  //end of take picture styles`
+
   container: {
     flex: 1,
     flexDirection:'row'
     //backgroundColor: '#C9C9C9',
+  },
+  makeWhite:{
+    backgroundColor:'#FFFFFF'
   },
   mainFont:{
     fontSize:10,
@@ -383,7 +532,8 @@ var styles = StyleSheet.create({
     borderColor: '#000000',
     borderWidth: 1,
     marginTop:20,
-    marginBottom:20
+    marginBottom:20,
+    padding:5
   },
   recordButtonContainer:{
     borderColor:'#FF0000',
