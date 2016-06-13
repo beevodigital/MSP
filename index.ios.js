@@ -261,14 +261,6 @@ class TakePictures extends React.Component{
       playing: false,
       finished: false,
       countdownStarted: false,
-      //uploading: false,
-      //showUploadModal: false,
-      //uploadProgress: 0,
-      //uploadTotal: 0,
-      //uploadWritten: 0,
-      //uploadStatus: undefined,
-      //cancelled: false,
-      //images: [],
     }
 
   }
@@ -309,14 +301,14 @@ class TakePictures extends React.Component{
           }}
           style={styles.preview}
           type="front"
-          orientation={Camera.constants.Orientation.auto}
+          orientation={Camera.constants.Orientation.landscapeRight}
           aspect={Camera.constants.Aspect.fit}
           captureTarget={Camera.constants.CaptureTarget.disk}>
 
           <View style={styles.takingPicturesCTA}>
             <Text style={styles.takingPicureText}>Get Ready! Smile!</Text>
             { this.state.countdownStarted
-                ? (<Countdown ref={(c) => { this.countdown = c }} onComplete={this.handleEnd} count={15}>
+                ? (<Countdown ref={(c) => { this.countdown = c }} onComplete={this.handleEnd} count={5}>
                     <CountdownOverlay countdownText={styles.takingPictureCountdownText}/>
                   </Countdown>)
                 : null }
@@ -346,7 +338,7 @@ class TakePictures extends React.Component{
         .catch(err => console.error(err));
 
     this.props.navigator.push({
-      id: 'splashpage'
+      id: 'thankyoupage'
     })
 
       }
@@ -354,6 +346,31 @@ class TakePictures extends React.Component{
 }
 
 class ThankYouPage extends React.Component{
+  constructor(props) {
+
+    super(props);
+    this.handleEnd = this.handleEnd.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.state = {
+      currentTime: 0.0,
+      recording: false,
+      stoppedRecording: false,
+      stoppedPlaying: false,
+      playing: false,
+      finished: false,
+      countdownStarted: false,
+    }
+
+  }
+
+  componentDidMount() {
+      this.handleClick();
+  }
+
+  handleClick() {
+    this.setState({countdownStarted: true});
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -378,11 +395,25 @@ class ThankYouPage extends React.Component{
               </View>
 
             </View>
+
+            { this.state.countdownStarted
+                ? (<Countdown ref={(c) => { this.countdown = c }} onComplete={this.handleEnd} count={5}>
+                    <CountdownOverlay countdownText={styles.takingPictureCountdownText}/>
+                  </Countdown>)
+                : null }
           </View>
         </Image>
 
       </View>
     );
+  }
+
+  //handle timer events
+  handleEnd() {
+    this.setState({countdownStarted: false});
+    this.props.navigator.push({
+      id: 'splashpage'
+    })
   }
 }
 
