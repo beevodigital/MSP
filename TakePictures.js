@@ -1,5 +1,3 @@
-'use strict';
-
 const React = require('react');
 const ReactNative = require('react-native');
 const {
@@ -19,40 +17,106 @@ const {
 
 import Camera from 'react-native-camera';
 import Countdown from "./Countdown";
+var CountdownOverlay = require('./CountdownOverlay');
 
-var {AudioRecorder, AudioUtils} = require('react-native-audio');
-const timer = require('react-native-timer');
+class TakePictures extends React.Component{
+  constructor(props) {
 
-var SplashPage = require('./SplashPage');
-var AudioRecord = require('./AudioRecord');
-var TakePictures = require('./TakePictures');
-var ThankYouPage = require('./ThankYouPage');
+    super(props);
+    this.handleEnd = this.handleEnd.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.addTwoSeconds = this.addTwoSeconds.bind(this);
+    this.state = {
+      currentTime: 0.0,
+      recording: false,
+      stoppedRecording: false,
+      stoppedPlaying: false,
+      playing: false,
+      finished: false,
+      countdownStarted: false,
+    }
 
-class MSP extends React.Component{
-  render() {
-    return (
-      <Navigator
-        style={styles.container}
-        initialRoute={{id: 'splashpage', index: 0}}
-        renderScene={this.navigatorRenderScene}/>
-    );
   }
 
-  navigatorRenderScene(route, navigator) {
-    var _navigator = navigator;
-    switch (route.id) {
-      case 'splashpage':
-        return (<SplashPage navigator={navigator} title="Splash Page"/>);
-      case 'audiorecord':
-        return (<AudioRecord navigator={navigator} title="Audio Record"/>);
-      case 'takepictures':
-        return (<TakePictures navigator={navigator} title="Take Pictures"/>);
-      case 'thankyoupage':
-        return (<ThankYouPage navigator={navigator} title="Thank You"/>);
+  componentDidMount() {
+      this.handleClick();
+  }
+
+  navSecond(){
+    this.props.navigator.push({
+      id: 'third'
+    })
+  }
+
+  handleEnd() {
+    this.setState({countdownStarted: false});
+    //stop the audio
+    console.log('testing');
+    this.takePicture();
+  }
+
+  handleClick() {
+    this.setState({countdownStarted: true});
+  }
+
+  addTwoSeconds () {
+    if (this.countdown) {
+      this.countdown.addTime(30)
     }
   }
-}
 
+  render() {
+    return (
+      <View style={styles.container}>
+        <Camera
+          ref={(cam) => {
+            this.camera = cam;
+          }}
+          style={styles.preview}
+          type="front"
+          orientation={Camera.constants.Orientation.landscapeRight}
+          aspect={Camera.constants.Aspect.fit}
+          captureTarget={Camera.constants.CaptureTarget.disk}>
+
+          <View style={styles.takingPicturesCTA}>
+            <Text style={styles.takingPicureText}>Get Ready! Smile!</Text>
+            { this.state.countdownStarted
+                ? (<Countdown ref={(c) => { this.countdown = c }} onComplete={this.handleEnd} count={5}>
+                    <CountdownOverlay countdownText={styles.takingPictureCountdownText}/>
+                  </Countdown>)
+                : null }
+          </View>
+        </Camera>
+      </View>
+    );
+  }
+//<Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>
+  takePictureTimer(){
+    for (var i = 0; i < 5; i++) {
+      var pictureTimer = setTimeout(this.takePicture(this.camera) , 1000)
+      this.takePicture();
+    }
+  }
+
+  takePicture() {
+    console.log('taking picture');
+    this.camera.capture()
+        .then((data) => console.log(data))
+        .catch(err => console.error(err));
+    this.camera.capture()
+        .then((data) => console.log(data))
+        .catch(err => console.error(err));
+    this.camera.capture()
+        .then((data) => console.log(data))
+        .catch(err => console.error(err));
+
+    this.props.navigator.push({
+      id: 'thankyoupage'
+    })
+
+      }
+
+}
 
 var styles = StyleSheet.create({
   //audioRecord styles
@@ -211,51 +275,4 @@ var styles = StyleSheet.create({
   }
 });
 
-
-
-
-class CountdownTestApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.handleEnd = this.handleEnd.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    this.addTwoSeconds = this.addTwoSeconds.bind(this);
-    this.state = {
-      countdownStarted: false
-    };
-  }
-
-  handleEnd() {
-    this.setState({countdownStarted: false});
-  }
-
-  handleClick() {
-    this.setState({countdownStarted: true});
-  }
-
-  addTwoSeconds () {
-    if (this.countdown) {
-      this.countdown.addTime(2)
-    }
-  }
-
-  render () {
-    return (
-      <View style={{flex: 1}}>
-        { this.state.countdownStarted
-            ? (<Countdown ref={(c) => { this.countdown = c }} onComplete={this.handleEnd}>
-                <CountdownOverlay />
-              </Countdown>)
-            : null }
-        <TouchableHighlight onPress={this.handleClick}>
-          <Text>Start Countdown</Text>
-        </TouchableHighlight>
-        <TouchableHighlight onPress={this.addTwoSeconds}>
-          <Text>Add 2 Seconds</Text>
-        </TouchableHighlight>
-      </View>
-    );
-  }
-}
-
-AppRegistry.registerComponent('MSP', () => MSP);
+module.exports = TakePictures;

@@ -25,7 +25,7 @@ var downloadUrl1 = 'http://epic.gsfc.nasa.gov/epic-archive/jpg/epic_1b_201511180
 
 var jobId1 = -1, jobId2 = -1;
 
-var MSP = React.createClass({
+var RNFSApp = React.createClass({
   getInitialState: function() {
     return { output: 'Doc folder: ' + RNFS.DocumentDirectoryPath };
   },
