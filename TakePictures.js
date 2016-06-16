@@ -76,6 +76,7 @@ class TakePictures extends React.Component{
           type="front"
           orientation={Camera.constants.Orientation.landscapeRight}
           aspect={Camera.constants.Aspect.fit}
+          phoneNumber="123"
           captureTarget={Camera.constants.CaptureTarget.disk}>
 
           <View style={styles.takingPicturesCTA}>

@@ -42,13 +42,13 @@ class MSP extends React.Component{
     var _navigator = navigator;
     switch (route.id) {
       case 'splashpage':
-        return (<SplashPage navigator={navigator} title="Splash Page"/>);
+        return (<SplashPage navigator={navigator} {...route.passProps} title="Splash Page"/>);
       case 'audiorecord':
-        return (<AudioRecord navigator={navigator} title="Audio Record"/>);
+        return (<AudioRecord navigator={navigator} {...route.passProps} title="Audio Record"/>);
       case 'takepictures':
-        return (<TakePictures navigator={navigator} title="Take Pictures"/>);
+        return (<TakePictures navigator={navigator} {...route.passProps} title="Take Pictures"/>);
       case 'thankyoupage':
-        return (<ThankYouPage navigator={navigator} title="Thank You"/>);
+        return (<ThankYouPage navigator={navigator} {...route.passProps} title="Thank You"/>);
     }
   }
 }

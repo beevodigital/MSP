@@ -16,9 +16,21 @@ const {
 } = ReactNative;
 
 class SplashPage extends React.Component{
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      phoneNumber: ''
+    }
+  }
+
   navSecond(){
+    console.log(this.state.phoneNumber);
     this.props.navigator.push({
-      id: 'audiorecord'
+      id: 'audiorecord',
+      passProps: {
+            phoneNumber: this.state.phoneNumber
+        }
     })
   }
 
@@ -42,6 +54,7 @@ class SplashPage extends React.Component{
                   style={styles.phonenumber}
                   keyboardType="numeric"
                   placeholder="111-222-3333"
+                  onChangeText={phoneNumber => this.setState({phoneNumber})}
                   />
                 <TouchableHighlight onPress={this.navSecond.bind(this)} style={styles.recordButtonContainer}>
                   <Text style={styles.recordButton}>Start Recording</Text>
