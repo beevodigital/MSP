@@ -87,7 +87,6 @@ class AudioRecord extends React.Component{
     return (
       <View style={styles.container, styles.recordingContainer}>
         <View style={styles.recordingCTA}>
-
           {this._renderButton("STOP", () => {this._stop()},styles.stopText )}
 
           { this.state.countdownStarted
@@ -199,7 +198,15 @@ var styles = StyleSheet.create({
     fontWeight:'bold',
     fontSize:40
   },
-
+  recordingSubHead:{
+    textAlign:'center',
+    color:'#FF0000',
+    fontWeight:'bold',
+    //backgroundColor:'#FFF000',
+    marginLeft:15,
+    marginRight:15
+    //width:50
+  },
   //end of record styles
 
   //take picture styles

@@ -99,21 +99,32 @@ class TakePictures extends React.Component{
     }
   }
 
-  takePicture() {
-    console.log('taking picture');
-    this.camera.capture()
-        .then((data) => console.log(data))
-        .catch(err => console.error(err));
-    this.camera.capture()
-        .then((data) => console.log(data))
-        .catch(err => console.error(err));
-    this.camera.capture()
-        .then((data) => console.log(data))
-        .catch(err => console.error(err));
-
+  navAway(){
+    console.log('nav away');
     this.props.navigator.push({
       id: 'thankyoupage'
     })
+  }
+
+  takePicture() {
+
+    (function myLoop (thisPass,i) {
+       setTimeout(function () {
+         console.log('taking picture');
+         thisPass.camera.capture()
+             .then((data) => console.log(data))
+             .catch(err => console.error(err));
+
+          if(i < 2)
+          {
+            console.log('under 2');
+            thisPass.navAway();
+          }
+                  //  your code here
+          if (--i) myLoop(thisPass,i);      //  decrement i and call myLoop again if i > 0
+       }, 1000)
+    })(this,5);
+
 
       }
 

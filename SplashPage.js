@@ -26,12 +26,23 @@ class SplashPage extends React.Component{
 
   navSecond(){
     console.log(this.state.phoneNumber);
-    this.props.navigator.push({
-      id: 'audiorecord',
-      passProps: {
-            phoneNumber: this.state.phoneNumber
-        }
-    })
+
+    //we need to check if the phone number is valid
+    console.log(this.state.phoneNumber.length);
+    if(this.state.phoneNumber.length < 10)
+    {
+      //too short
+      console.log('phone number too short');
+      this._phoneNumber.setNativeProps({style: styles.phoneNumberError});
+    }
+    else {
+      this.props.navigator.push({
+        id: 'audiorecord',
+        passProps: {
+              phoneNumber: this.state.phoneNumber
+          }
+      })
+    }
   }
 
   render() {
@@ -51,9 +62,10 @@ class SplashPage extends React.Component{
                   This space provides you the opportunity to record a 5 minute recollection of travel
                 </Text>
                 <TextInput
+                  ref={component => this._phoneNumber = component}
                   style={styles.phonenumber}
                   keyboardType="numeric"
-                  placeholder="111-222-3333"
+                  placeholder="Phone Number"
                   onChangeText={phoneNumber => this.setState({phoneNumber})}
                   />
                 <TouchableHighlight onPress={this.navSecond.bind(this)} style={styles.recordButtonContainer}>
@@ -123,6 +135,10 @@ var styles = StyleSheet.create({
     marginTop:20,
     marginBottom:20,
     padding:5
+  },
+  phoneNumberError:{
+    borderColor:'#FF0000',
+    borderWidth:2
   },
   recordButtonContainer:{
     borderColor:'#FF0000',
