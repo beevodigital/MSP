@@ -69,7 +69,6 @@ class AudioRecord extends React.Component{
   handleEnd() {
     this.setState({countdownStarted: false});
     //stop the audio
-    console.log('testing');
     this._stop();
   }
 
@@ -86,14 +85,22 @@ class AudioRecord extends React.Component{
   render() {
     return (
       <View style={styles.container, styles.recordingContainer}>
+        <View>
+          <Text>
+            RECORDING
+          </Text>
+        </View>
         <View style={styles.recordingCTA}>
-          {this._renderButton("STOP", () => {this._stop()},styles.stopText )}
+          {this._renderButton("PRESS TO STOP", () => {this._stop()},styles.stopText )}
 
-          { this.state.countdownStarted
-              ? (<Countdown ref={(c) => { this.countdown = c }} onComplete={this.handleEnd} count={300}>
-                  <CountdownOverlay countdownText={styles.recordText}/>
-                </Countdown>)
-              : null }
+
+        </View>
+        <View>
+        { this.state.countdownStarted
+            ? (<Countdown ref={(c) => { this.countdown = c }} onComplete={this.handleEnd} count={300}>
+                <CountdownOverlay countdownText={styles.recordText}/>
+              </Countdown>)
+            : null }
         </View>
       </View>
     );
@@ -144,7 +151,10 @@ _renderButton(title, onPress, stylePass) {
 
     //todo: we should move them to takePictures
     this.props.navigator.push({
-      id: 'takepictures'
+      id: 'takepictures',
+      passProps: {
+            phoneNumber: this.props.phoneNumber
+        }
     })
   }
 
@@ -170,7 +180,7 @@ var styles = StyleSheet.create({
     backgroundColor:'#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop:50
+    paddingTop:200
   },
   recordingCTA:{
     borderColor:'#FF0000',

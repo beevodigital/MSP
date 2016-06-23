@@ -50,10 +50,8 @@ class SplashPage extends React.Component{
       <View style={styles.container}>
         <Image source={require('./img/see28.jpg')} style={styles.backgroundImage} >
           <View style={styles.halfcolumncontainer}>
-            <View style={styles.halfcolumn}>
-              <Text></Text>
-            </View>
-            <View style={styles.halfcolumn, styles.whitebackground}>
+
+            <View style={styles.columnRight, styles.whitebackground}>
               <View style={styles.wrapText}>
                 <Text style={styles.mainFont}>
                   Welcome to arts@msp's storyBooth, part of the see18 (multimedia|story|performance) installation.{"\n"}{"\n"}
@@ -65,12 +63,12 @@ class SplashPage extends React.Component{
                   ref={component => this._phoneNumber = component}
                   style={styles.phonenumber}
                   keyboardType="numeric"
-                  placeholder="Phone Number"
+                  placeholder="Enter Phone Number and Press Return"
+                  placeholderTextColor="#CCCCCC"
                   onChangeText={phoneNumber => this.setState({phoneNumber})}
+                  onSubmitEditing={this.navSecond.bind(this)}
                   />
-                <TouchableHighlight onPress={this.navSecond.bind(this)} style={styles.recordButtonContainer}>
-                  <Text style={styles.recordButton}>Start Recording</Text>
-                </TouchableHighlight>
+
                 <Text style={styles.mainFont}>
                   By leaving your story, arts@msp will retain the rights to curate your images and stories in future exhibits and for promotional purposes
                 </Text>
@@ -85,37 +83,36 @@ class SplashPage extends React.Component{
   }
 }
 
+//<TouchableHighlight onPress={this.navSecond.bind(this)} style={styles.recordButtonContainer}>
+//  <Text style={styles.recordButton}>Start Recording</Text>
+//</TouchableHighlight>
+
 var styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection:'row'
     //backgroundColor: '#C9C9C9',
   },
-  makeWhite:{
-    backgroundColor:'#FFFFFF'
-  },
   mainFont:{
-    fontSize:10,
+    fontSize:30,
     textAlign:'center'
-  },
-  backgroundImage:{
-    flex:1,
-    resizeMode:'stretch'
   },
   whitebackground:{
     backgroundColor: 'rgba(255,255,255,0.9)',
-    height:300,
+    height:740,
     margin:10,
-    padding:10
+    padding:10,
+    marginTop:20
   },
   halfcolumncontainer:{
-    flexDirection:'row'
+    //flexDirection:'row',
+    alignItems: 'flex-end'
   },
   wrapText:{
     flexDirection:'column',
-    width:200
+    width:600
   },
-  halfcolumn:{
+  columnRight:{
     flex:1,
     flexWrap:'wrap',
     flexDirection:'row'
@@ -125,44 +122,32 @@ var styles = StyleSheet.create({
     backgroundColor:'#CCCCCC',
     width:500,
     padding:25,
-    margin:25
+    margin:25,
+    fontSize:20
   },
   phonenumber: {
-    width:200,
-    height:25,
+    width:600,
+    height:70,
     borderColor: '#000000',
-    borderWidth: 1,
-    marginTop:20,
-    marginBottom:20,
-    padding:5
+    borderWidth: 2,
+    marginTop:40,
+    marginBottom:40,
+    padding:5,
+    color:'#CCCCCC',
+    fontSize:30
   },
   phoneNumberError:{
     borderColor:'#FF0000',
-    borderWidth:2
-  },
-  recordButtonContainer:{
-    borderColor:'#FF0000',
-    borderWidth:2,
-    marginBottom:20
-  },
-  recordButton:{
-    textAlign:'center',
-    color:'#FF0000',
-    padding:5
-  },
-  button: {
-    height: 32,
-    backgroundColor: '#CCCCCC',
-  },
-  text: {
-    fontSize: 16,
-    textAlign: 'center',
-    margin: 10,
+    borderWidth:3
   },
   image: {
     width: 100,
     height: 100,
-  }
-});
+  },
+  backgroundImage:{
+    flex:1,
+    resizeMode:'stretch'
+  },
 
+});
 module.exports = SplashPage;
