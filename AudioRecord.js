@@ -84,9 +84,9 @@ class AudioRecord extends React.Component{
 
   render() {
     return (
-      <View style={styles.container, styles.recordingContainer}>
-        <View>
-          <Text>
+      <View style={styles.container, styles.audioContainer}>
+        <View style={styles.recordingContainer}>
+          <Text style={styles.recordingText}>
             RECORDING
           </Text>
         </View>
@@ -176,24 +176,47 @@ _renderButton(title, onPress, stylePass) {
 
 var styles = StyleSheet.create({
   //audioRecord styles
+  container: {
+    flex: 1,
+    flexDirection:'row'
+    //backgroundColor: '#C9C9C9',
+  },
+  recordingText:{
+    borderColor:'#FF0000',
+    color:'#FF0000',
+    borderWidth:6,
+    fontSize:60,
+    fontWeight:'bold',
+    paddingTop:15,
+    paddingBottom:15,
+    paddingRight:50,
+    paddingLeft:50
+
+  },
   recordingContainer:{
+    paddingTop:20
+  },
+  audioContainer:{
     backgroundColor:'#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop:200
+    //paddingTop:200
   },
   recordingCTA:{
-    borderColor:'#FF0000',
-    borderWidth:4,
-    width:200,
-    height:200,
-    borderRadius: 200/2,
-    paddingTop:75
+    borderColor:'#009900',
+    borderWidth:6,
+    width:260,
+    height:260,
+    borderRadius: 260/2,
+    paddingTop:90,
+    marginTop:150
   },
   recordText:{
     textAlign:'center',
-    color:'#FF0000',
+    color:'#000000',
     fontWeight:'bold',
+    marginTop:150,
+    fontSize:40,
     //backgroundColor:'#FFF000',
     marginLeft:15,
     marginRight:15
@@ -204,7 +227,7 @@ var styles = StyleSheet.create({
   },
   stopText:{
     textAlign:'center',
-    color:'#FF0000',
+    color:'#009900',
     fontWeight:'bold',
     fontSize:40
   },
@@ -249,11 +272,7 @@ var styles = StyleSheet.create({
 
   //end of take picture styles`
 
-  container: {
-    flex: 1,
-    flexDirection:'row'
-    //backgroundColor: '#C9C9C9',
-  },
+
   makeWhite:{
     backgroundColor:'#FFFFFF'
   },
