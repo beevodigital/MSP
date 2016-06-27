@@ -181,6 +181,12 @@ var styles = StyleSheet.create({
     flexDirection:'row'
     //backgroundColor: '#C9C9C9',
   },
+  audioContainer:{
+    backgroundColor:'#FFFFFF',
+    justifyContent: 'center',
+    alignItems: 'center',
+    //paddingTop:200
+  },
   recordingText:{
     borderColor:'#FF0000',
     color:'#FF0000',
@@ -196,12 +202,7 @@ var styles = StyleSheet.create({
   recordingContainer:{
     paddingTop:20
   },
-  audioContainer:{
-    backgroundColor:'#FFFFFF',
-    justifyContent: 'center',
-    alignItems: 'center',
-    //paddingTop:200
-  },
+
   recordingCTA:{
     borderColor:'#009900',
     borderWidth:6,
@@ -242,120 +243,7 @@ var styles = StyleSheet.create({
   },
   //end of record styles
 
-  //take picture styles
-  takingPicturesCTA:{
-    borderColor:'#00ff00',
-    borderWidth:4,
-    width:200,
-    height:200,
-    borderRadius: 200/2,
-    paddingTop:75
-  },
-  takingPicureText:{
-    textAlign:'center',
-    color:'#00ff00',
-    fontWeight:'bold',
-    //backgroundColor:'#FFF000',
-    marginLeft:15,
-    marginRight:15
-    //width:50
-  },
-  takingPictureCountdownText:{
-    textAlign:'center',
-    color:'#00ff00',
-    fontWeight:'bold',
-    //backgroundColor:'#FFF000',
-    marginLeft:15,
-    marginRight:15
-    //width:50
-  },
 
-  //end of take picture styles`
-
-
-  makeWhite:{
-    backgroundColor:'#FFFFFF'
-  },
-  mainFont:{
-    fontSize:10,
-    textAlign:'center'
-  },
-  backgroundImage:{
-    flex:1,
-    resizeMode:'stretch'
-  },
-  whitebackground:{
-    backgroundColor: 'rgba(255,255,255,0.9)',
-    height:300,
-    margin:10,
-    padding:10
-  },
-  halfcolumncontainer:{
-    flexDirection:'row'
-  },
-  wrapText:{
-    flexDirection:'column',
-    width:200
-  },
-  halfcolumn:{
-    flex:1,
-    flexWrap:'wrap',
-    flexDirection:'row'
-  },
-  phonenumberContainer:{
-    //flex:1,
-    backgroundColor:'#CCCCCC',
-    width:500,
-    padding:25,
-    margin:25
-  },
-  phonenumber: {
-    width:200,
-    height:25,
-    borderColor: '#000000',
-    borderWidth: 1,
-    marginTop:20,
-    marginBottom:20,
-    padding:5
-  },
-  recordButtonContainer:{
-    borderColor:'#FF0000',
-    borderWidth:2,
-    marginBottom:20
-  },
-  recordButton:{
-    textAlign:'center',
-    color:'#FF0000',
-    padding:5
-  },
-  button: {
-    height: 32,
-    backgroundColor: '#CCCCCC',
-  },
-  text: {
-    fontSize: 16,
-    textAlign: 'center',
-    margin: 10,
-  },
-  image: {
-    width: 100,
-    height: 100,
-  },
-  preview: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    height: Dimensions.get('window').height,
-    width: Dimensions.get('window').width
-  },
-  capture: {
-    flex: 0,
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    color: '#000',
-    padding: 10,
-    margin: 40
-  }
 });
 
 module.exports = AudioRecord;

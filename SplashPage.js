@@ -29,7 +29,7 @@ class SplashPage extends React.Component{
 
     //we need to check if the phone number is valid
     console.log(this.state.phoneNumber.length);
-    if(1 ==2 && this.state.phoneNumber.length < 10)
+    if(1 == 2 && this.state.phoneNumber.length < 10)
     {
       //too short
       console.log('phone number too short');
@@ -64,7 +64,7 @@ class SplashPage extends React.Component{
                   style={styles.phonenumber}
                   keyboardType="numeric"
                   placeholder="Enter Phone Number and Press Return"
-                  placeholderTextColor="#CCCCCC"
+                  placeholderTextColor="#666666"
                   onChangeText={phoneNumber => this.setState({phoneNumber})}
                   onSubmitEditing={this.navSecond.bind(this)}
                   />
@@ -133,7 +133,7 @@ var styles = StyleSheet.create({
     marginTop:40,
     marginBottom:40,
     padding:5,
-    color:'#CCCCCC',
+    color:'#666666',
     fontSize:30
   },
   phoneNumberError:{
