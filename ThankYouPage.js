@@ -51,7 +51,7 @@ class ThankYouPage extends React.Component{
           <View style={styles.halfcolumncontainer}>
             <View style={styles.halfcolumn}>
             { this.state.countdownStarted
-                ? (<Countdown style="display:none" ref={(c) => { this.countdown = c }} onComplete={this.handleEnd} count={5}>
+                ? (<Countdown style="display:none" ref={(c) => { this.countdown = c }} onComplete={this.handleEnd} count={15}>
                     <CountdownOverlay countdownText={styles.takingPictureCountdownText}/>
                   </Countdown>)
                 : null }
@@ -91,72 +91,6 @@ class ThankYouPage extends React.Component{
 }
 
 var styles = StyleSheet.create({
-  //audioRecord styles
-  recordingContainer:{
-    backgroundColor:'#FFFFFF',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop:50
-  },
-  recordingCTA:{
-    borderColor:'#FF0000',
-    borderWidth:4,
-    width:200,
-    height:200,
-    borderRadius: 200/2,
-    paddingTop:75
-  },
-  recordText:{
-    textAlign:'center',
-    color:'#FF0000',
-    fontWeight:'bold',
-    //backgroundColor:'#FFF000',
-    marginLeft:15,
-    marginRight:15
-    //width:50
-  },
-  recordTextContainer:{
-    //width:50
-  },
-  stopText:{
-    textAlign:'center',
-    color:'#FF0000',
-    fontWeight:'bold',
-    fontSize:40
-  },
-
-  //end of record styles
-
-  //take picture styles
-  takingPicturesCTA:{
-    borderColor:'#00ff00',
-    borderWidth:4,
-    width:200,
-    height:200,
-    borderRadius: 200/2,
-    paddingTop:75
-  },
-  takingPicureText:{
-    textAlign:'center',
-    color:'#00ff00',
-    fontWeight:'bold',
-    //backgroundColor:'#FFF000',
-    marginLeft:15,
-    marginRight:15
-    //width:50
-  },
-  takingPictureCountdownText:{
-    textAlign:'center',
-    color:'#00ff00',
-    fontWeight:'bold',
-    //backgroundColor:'#FFF000',
-    marginLeft:15,
-    marginRight:15
-    //width:50
-  },
-
-  //end of take picture styles`
-
   container: {
     flex: 1,
     flexDirection:'row'
@@ -166,7 +100,7 @@ var styles = StyleSheet.create({
     backgroundColor:'#FFFFFF'
   },
   mainFont:{
-    fontSize:20,
+    fontSize:30,
     textAlign:'center'
   },
   backgroundImage:{
@@ -175,16 +109,17 @@ var styles = StyleSheet.create({
   },
   whitebackground:{
     backgroundColor: 'rgba(255,255,255,0.9)',
-    height:750,
+    height:740,
     margin:10,
-    padding:10
+    padding:10,
+    marginTop:20
   },
   halfcolumncontainer:{
     flexDirection:'row'
   },
   wrapText:{
     flexDirection:'column',
-    width:400
+    width:600
   },
   halfcolumn:{
     flex:1,
