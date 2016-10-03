@@ -50,7 +50,7 @@ class AudioRecord extends React.Component{
 
     var d = new Date();
     var n = d.getSeconds();
-    var audioPath = AudioUtils.DocumentDirectoryPath + '/' + this.props.phoneNumber + '/' + 'audio.caf';
+    var audioPath = AudioUtils.DocumentDirectoryPath + '/' + this.props.phoneNumber + '-' + (new Date).getTime() +'-audio.caf';
     console.log(audioPath);
     AudioRecorder.prepareRecordingAtPath(audioPath);
     AudioRecorder.onProgress = (data) => {

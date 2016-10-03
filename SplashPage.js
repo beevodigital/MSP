@@ -29,7 +29,7 @@ class SplashPage extends React.Component{
 
     //we need to check if the phone number is valid
     console.log(this.state.phoneNumber.length);
-    if(1 == 2 && this.state.phoneNumber.length < 10)
+    if(this.state.phoneNumber.length < 10)
     {
       //too short
       console.log('phone number too short');
