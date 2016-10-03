@@ -18,67 +18,44 @@ const {
 class SplashPage extends React.Component{
   constructor(props) {
     super(props)
-
-    this.state = {
-      phoneNumber: ''
-    }
   }
 
   navSecond(){
-    console.log(this.state.phoneNumber);
-
-    //we need to check if the phone number is valid
-    console.log(this.state.phoneNumber.length);
-    if(this.state.phoneNumber.length < 10)
-    {
-      //too short
-      console.log('phone number too short');
-      this._phoneNumber.setNativeProps({style: styles.phoneNumberError});
-    }
-    else {
-      this.props.navigator.push({
-        id: 'audiorecord',
-        passProps: {
-              phoneNumber: this.state.phoneNumber
-          }
+    this.props.navigator.push({
+        id: 'intropage'
       })
-    }
+
   }
 
   render() {
     return (
-      <View style={styles.container}>
-        <Image source={require('./img/see28.jpg')} style={styles.backgroundImage} >
-          <View style={styles.halfcolumncontainer}>
-
-            <View style={styles.columnRight, styles.whitebackground}>
-              <View style={styles.wrapText}>
-                <Text style={styles.mainFont}>
-                  Welcome to arts@msp's storyBooth, part of the see18 (multimedia|story|performance) installation.{"\n"}{"\n"}
-                </Text>
-                <Text style={styles.mainFont}>
-                  This space provides you the opportunity to record a 5 minute recollection of travel
-                </Text>
-                <TextInput
-                  ref={component => this._phoneNumber = component}
-                  style={styles.phonenumber}
-                  keyboardType="numeric"
-                  placeholder="Enter Phone Number and Press Return"
-                  placeholderTextColor="#666666"
-                  onChangeText={phoneNumber => this.setState({phoneNumber})}
-                  onSubmitEditing={this.navSecond.bind(this)}
-                  />
-
-                <Text style={styles.mainFont}>
-                  By leaving your story, arts@msp will retain the rights to curate your images and stories in future exhibits and for promotional purposes
-                </Text>
-              </View>
-
-            </View>
+      <TouchableHighlight style={styles.container} onPress={this.navSecond.bind(this)}>
+        <View style={styles.containerWidth}>
+          <View >
+            <Image source={require('./img/SplashIcons.png')}  style={styles.splashIcons}/>
           </View>
-        </Image>
-
-      </View>
+          <View>
+            <Text style={styles.boldHeadline}>
+              Hello!
+            </Text>
+            <Text style={styles.lightHeadline}>
+              !Hola!
+            </Text>
+          </View>
+          <View>
+            <Text style={styles.subHead}>Want to make you own shotfilm for See 18, MSP's film screening room?</Text>
+          </View>
+          <View>
+            <Image source={require('./img/fingerIcon.png')}  style={styles.fingerIcon}/>
+            <Text>
+              Tap Anywhere to start
+            </Text>
+          </View>
+          <View>
+            <Text>Legal Copy</Text>
+          </View>
+        </View>
+      </TouchableHighlight>
     );
   }
 }
@@ -90,8 +67,30 @@ class SplashPage extends React.Component{
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection:'row'
+    padding:25
+    //flexDirection:'row'
     //backgroundColor: '#C9C9C9',
+  },
+  containerWidth:{
+    width:800
+  },
+  splashIcons:{
+    width:411,
+    height:182
+  },
+  boldHeadline:{
+    fontSize:130,
+    fontWeight:'bold'
+  },
+  lightHeadline:{
+    fontSize:130
+  },
+  subHead:{
+    fontSize:40
+  },
+  fingerIcon:{
+    width:53,
+    height:53
   },
   mainFont:{
     fontSize:30,

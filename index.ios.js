@@ -24,6 +24,7 @@ var {AudioRecorder, AudioUtils} = require('react-native-audio');
 const timer = require('react-native-timer');
 
 var SplashPage = require('./SplashPage');
+var IntroPage = require('./IntroPage');
 var AudioRecord = require('./AudioRecord');
 var TakePictures = require('./TakePictures');
 var ThankYouPage = require('./ThankYouPage');
@@ -43,6 +44,8 @@ class MSP extends React.Component{
     switch (route.id) {
       case 'splashpage':
         return (<SplashPage navigator={navigator} {...route.passProps} title="Splash Page"/>);
+      case 'intropage':
+        return (<IntroPage navigator={navigator} {...route.passProps} title="Intro Page"/>);
       case 'audiorecord':
         return (<AudioRecord navigator={navigator} {...route.passProps} title="Audio Record"/>);
       case 'takepictures':
