@@ -15,14 +15,14 @@ const {
   TextInput,
 } = ReactNative;
 
-class SplashPage extends React.Component{
+class FinalInstructionsPage extends React.Component{
   constructor(props) {
     super(props)
   }
 
   navSecond(){
     this.props.navigator.push({
-        id: 'intropage'
+        id: 'initials'
       })
 
   }
@@ -32,27 +32,16 @@ class SplashPage extends React.Component{
       <TouchableHighlight style={styles.container} onPress={this.navSecond.bind(this)}>
         <View style={styles.containerWidth}>
           <View >
-            <Image source={require('./img/SplashIcons.png')}  style={styles.splashIcons}/>
+            <Image source={require('./img/instructionsIcon.png')}  style={styles.splashIcons}/>
           </View>
           <View>
-            <Text style={styles.boldHeadline}>
-              Hello!
-            </Text>
-            <Text style={styles.lightHeadline}>
-              !Hola!
-            </Text>
-          </View>
-          <View>
-            <Text style={styles.subHead}>Want to make you own shotfilm for See 18, MSP's film screening room?</Text>
+            <Text style={styles.subHead}>Once you've recorded your story, it's all set for future Arts@MSP See 18 screnings!</Text>
           </View>
           <View style={styles.flexRow}>
             <Image source={require('./img/fingerIcon.png')}  style={styles.fingerIcon}/>
             <Text style={styles.CTAtext}>
-              Tap Anywhere to start
+              Tap Anywhere to continue
             </Text>
-          </View>
-          <View>
-            <Text style={styles.legalText}>By agreeing below, you transfer all rights, including the copyright, in your StoryBooth submission to Airport Foundation MSP. You also agree that the Airport Foundation MSP, the Metropolitan Airports Commission, or any successor to either, may display, reproduce, edit and distribute your travel story, including your name, likeness, and any photos taken during your participation in StoryBooth, in all media for any purpose.</Text>
           </View>
         </View>
       </TouchableHighlight>
@@ -67,7 +56,8 @@ class SplashPage extends React.Component{
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding:25
+    padding:25,
+    backgroundColor:'#3f85fc'
     //flexDirection:'row'
     //backgroundColor: '#C9C9C9',
   },
@@ -91,11 +81,12 @@ var styles = StyleSheet.create({
     color:'#3f85fc'
   },
   subHead:{
-    fontSize:40,
-    color:'#3f85fc'
+    fontSize:60,
+    color:'#ffffff',
+    fontWeight:'bold'
   },
   CTAtext:{
-    color:'#3f85fc',
+    color:'#ffffff',
     paddingTop:15,
     fontSize:20
   },
@@ -164,4 +155,4 @@ var styles = StyleSheet.create({
   },
 
 });
-module.exports = SplashPage;
+module.exports = FinalInstructionsPage;

@@ -29,7 +29,7 @@ class IntroPage extends React.Component{
 
     //we need to check if the phone number is valid
     console.log(this.state.phoneNumber.length);
-    if(this.state.phoneNumber.length < 10)
+    if(this.state.phoneNumber.length < 0)
     {
       //too short
       console.log('phone number too short');
@@ -37,7 +37,7 @@ class IntroPage extends React.Component{
     }
     else {
       this.props.navigator.push({
-        id: 'audiorecord',
+        id: 'finalinstructionspage',
         passProps: {
               phoneNumber: this.state.phoneNumber
           }
@@ -51,45 +51,52 @@ class IntroPage extends React.Component{
         <View style={styles.leftColumn}>
 
             <View >
-              <Image source={require('./img/SplashIcons.png')}  style={styles.splashIcons}/>
+              <Image source={require('./img/IntroIcons.png')}  style={styles.mainIcons}/>
             </View>
             <View>
               <Text style={styles.boldHeadline}>
-                Hello!
+                Welcome
               </Text>
               <Text style={styles.lightHeadline}>
-                !Hola!
+                Bienvenido
               </Text>
             </View>
             <View>
-              <Text style={styles.subHead}>Want to make you own shotfilm for See 18, MSP's film screening room?</Text>
+              <Text style={styles.subHead}>to the Arts@MSP Story Booth!</Text>
             </View>
-            <View>
-              <Image source={require('./img/fingerIcon.png')}  style={styles.fingerIcon}/>
-              <Text>
-                Tap Anywhere to start
+            <View style={styles.flexRow}>
+              <Image source={require('./img/takeOffIcon.png')}  style={styles.takeOffIcon}/>
+              <Text style={styles.CTAtext}>
+                Tell us where you're headed
               </Text>
             </View>
-            <View>
-              <Text>Legal Copy</Text>
+            <View style={styles.flexRow}>
+              <Image source={require('./img/landingIcon.png')}  style={styles.landingIcon}/>
+              <Text style={styles.CTAtext}>
+                What's waiting for you when you land?
+              </Text>
             </View>
 
         </View>
 
         <View style={styles.rightColumn}>
           <View style={styles.wrapText}>
-            <Text style={styles.mainFont}>
-              This space provides you the opportunity to record a 5 minute recollection of travel
+            <Image source={require('./img/enterPhoneArrow.png')} style={styles.enterPhoneArrow}/>
+            <Text style={styles.enterPhoneText}>
+              Enter Your Phone Number + Tap Return
             </Text>
-            <TextInput
-              ref={component => this._phoneNumber = component}
-              style={styles.phonenumber}
-              keyboardType="numeric"
-              placeholder="Enter Phone Number and Press Return"
-              placeholderTextColor="#666666"
-              onChangeText={phoneNumber => this.setState({phoneNumber})}
-              onSubmitEditing={this.navSecond.bind(this)}
-              />
+            <View style={styles.phonenumberContainer}>
+              <Image source={require('./img/phoneIcon.png')} style={styles.phoneIcon}/>
+              <TextInput
+                ref={component => this._phoneNumber = component}
+                style={styles.phonenumber}
+                keyboardType="numeric"
+                placeholder="XXX-XXX-XXXX"
+                placeholderTextColor="#ffffff"
+                onChangeText={phoneNumber => this.setState({phoneNumber})}
+                onSubmitEditing={this.navSecond.bind(this)}
+                />
+              </View>
             </View>
 
         </View>
@@ -112,40 +119,67 @@ var styles = StyleSheet.create({
     padding:25
     //backgroundColor: '#C9C9C9',
   },
+  flexRow:{
+    flexDirection:'row'
+  },
   leftColumn:{
     //flexDirection:'row',
     //alignItems: 'flex-end',
-    width:550
+    width:600
   },
-  splashIcons:{
+  mainIcons:{
     width:411,
     height:182
   },
   boldHeadline:{
-    fontSize:130,
-    fontWeight:'bold'
+    fontSize:120,
+    fontWeight:'bold',
+    color:'#ffffff'
   },
   lightHeadline:{
-    fontSize:130
+    fontSize:120,
+    color:'#ffffff'
   },
   subHead:{
-    fontSize:40
+    fontSize:40,
+    color:'#ffffff'
   },
-  fingerIcon:{
+  takeOffIcon:{
     width:53,
     height:53
   },
+  landingIcon:{
+    width:53,
+    height:53
+  },
+  CTAtext:{
+    color:'#ffffff',
+    paddingTop:15,
+    fontSize:20
+  },
   rightColumn:{
-    width:400
+    width:350
   },
   whitebackground:{
-    backgroundColor: 'rgba(255,255,255,0.9)',
+    backgroundColor: '#ffffff',
     height:740,
     //margin:10,
     //padding:10,
     //marginTop:20
   },
-
+  enterPhoneArrow:{
+    width:120,
+    height:120,
+    marginTop:100,
+    marginLeft:25,
+    marginBottom:10
+  },
+  enterPhoneText:{
+    fontSize:30,
+    color:'#3f85fc',
+    marginLeft:25,
+    fontWeight:'bold'
+  },
   mainFont:{
     fontSize:30,
     textAlign:'center'
@@ -160,22 +194,31 @@ var styles = StyleSheet.create({
 
   phonenumberContainer:{
     //flex:1,
-    backgroundColor:'#CCCCCC',
+    backgroundColor:'#3f85fc',
+    flexDirection:'row',
     //width:500,
-    padding:25,
+    padding:5,
     margin:25,
-    fontSize:20
+  },
+  phoneIcon:{
+    width:15,
+    height:33
   },
   phonenumber: {
-    //width:600,
-    height:70,
-    borderColor: '#000000',
-    borderWidth: 2,
-    marginTop:40,
-    marginBottom:40,
-    padding:5,
-    color:'#666666',
-    fontSize:30
+    width:150,
+    height:20,
+    fontWeight:'bold',
+    marginTop:5,
+    marginLeft:20,
+    fontSize:20,
+
+    //borderColor: '#000000',
+    //borderWidth: 2,
+    //marginTop:40,
+    //marginBottom:40,
+    //padding:5,
+    color:'#ffffff',
+    //fontSize:30
   },
   phoneNumberError:{
     borderColor:'#FF0000',

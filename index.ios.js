@@ -25,6 +25,8 @@ const timer = require('react-native-timer');
 
 var SplashPage = require('./SplashPage');
 var IntroPage = require('./IntroPage');
+var FinalInstructionsPage = require('./finalInstructionsPage');
+var Initials = require('./Initials');
 var AudioRecord = require('./AudioRecord');
 var TakePictures = require('./TakePictures');
 var ThankYouPage = require('./ThankYouPage');
@@ -34,7 +36,7 @@ class MSP extends React.Component{
     return (
       <Navigator
         style={styles.container}
-        initialRoute={{id: 'splashpage', index: 0}}
+        initialRoute={{id: 'initials', index: 0}}
         renderScene={this.navigatorRenderScene}/>
     );
   }
@@ -46,6 +48,10 @@ class MSP extends React.Component{
         return (<SplashPage navigator={navigator} {...route.passProps} title="Splash Page"/>);
       case 'intropage':
         return (<IntroPage navigator={navigator} {...route.passProps} title="Intro Page"/>);
+      case 'finalinstructionspage':
+        return (<FinalInstructionsPage navigator={navigator} {...route.passProps} title="Final Instructions Page"/>);
+      case 'initials':
+        return (<Initials navigator={navigator} {...route.passProps} title="Initials Page"/>);
       case 'audiorecord':
         return (<AudioRecord navigator={navigator} {...route.passProps} title="Audio Record"/>);
       case 'takepictures':
