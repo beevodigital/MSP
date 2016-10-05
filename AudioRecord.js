@@ -84,24 +84,31 @@ class AudioRecord extends React.Component{
 
   render() {
     return (
-      <View style={styles.container, styles.audioContainer}>
+      <View style={styles.container}>
         <View style={styles.recordingContainer}>
+          <View style={styles.recordingIcon}/>
           <Text style={styles.recordingText}>
             RECORDING
           </Text>
         </View>
-        <View style={styles.recordingCTA}>
-          {this._renderButton("PRESS TO STOP", () => {this._stop()},styles.stopText )}
-
-
-        </View>
         <View>
-        { this.state.countdownStarted
-            ? (<Countdown ref={(c) => { this.countdown = c }} onComplete={this.handleEnd} count={300}>
-                <CountdownOverlay countdownText={styles.recordText}/>
-              </Countdown>)
-            : null }
+          <Image source={require('./img/recordWaves.png')}  style={styles.recordWaves}/>
         </View>
+
+        <View style={styles.recordingCTA}>
+          <View style={styles.recordingStop}>
+            {this._renderButton("Press To Stop", () => {this._stop()},styles.stopText )}
+          </View>
+
+          <View>
+          { this.state.countdownStarted
+              ? (<Countdown ref={(c) => { this.countdown = c }} onComplete={this.handleEnd} count={300}>
+                  <CountdownOverlay countdownText={styles.recordText}/>
+                </Countdown>)
+              : null }
+          </View>
+        </View>
+
       </View>
     );
   }
@@ -177,61 +184,94 @@ _renderButton(title, onPress, stylePass) {
 var styles = StyleSheet.create({
   //audioRecord styles
   container: {
+    //flex: 1,
     flex: 1,
-    flexDirection:'row'
-    //backgroundColor: '#C9C9C9',
+    //flexDirection:'row',
+    backgroundColor: '#3f85fc',
+    //justifyContent: 'center',
+    alignItems: 'center',
   },
+  recordingContainer:{
+    //height:50,
+    //marginTop:50
+  },
+  recordWaves:{
+    width:1091,
+    height:482
+  },
+  recordingIcon:{
+      borderColor:'#ff0000',
+      borderWidth:2,
+      borderRadius:180/2,
+      width:20,
+      height:20,
+      backgroundColor:'#ff0000',
+      justifyContent:'center',
+      padding:5,
+      marginTop:25
+  },
+  recordingText:{
+    //borderColor:'#FF0000',
+    color:'#ffffff',
+    //borderWidth:6,
+    fontSize:30,
+    fontWeight:'bold',
+    marginTop:20,
+    //marginBottom:100
+    //paddingTop:15,
+    //paddingBottom:15,
+    //paddingRight:50,
+    //paddingLeft:50
+
+  },
+  recordingCTA:{
+    flexDirection:'row',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    width:1020
+  },
+  recordingStop:{
+    width:480
+    //borderColor:'#009900',
+    //borderWidth:6,
+    //width:260,
+    //height:260,
+    //borderRadius: 260/2,
+    //paddingTop:90,
+    //marginTop:150
+  },
+  stopText:{
+    //textAlign:'left',
+    color:'#ffffff',
+    fontWeight:'bold',
+    fontSize:25
+  },
+
   audioContainer:{
-    backgroundColor:'#FFFFFF',
+    //backgroundColor:'#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
     //paddingTop:200
   },
-  recordingText:{
-    borderColor:'#FF0000',
-    color:'#FF0000',
-    borderWidth:6,
-    fontSize:60,
-    fontWeight:'bold',
-    paddingTop:15,
-    paddingBottom:15,
-    paddingRight:50,
-    paddingLeft:50
 
-  },
-  recordingContainer:{
-    paddingTop:20
-  },
 
-  recordingCTA:{
-    borderColor:'#009900',
-    borderWidth:6,
-    width:260,
-    height:260,
-    borderRadius: 260/2,
-    paddingTop:90,
-    marginTop:150
-  },
+
+
   recordText:{
-    textAlign:'center',
-    color:'#000000',
+    //textAlign:'center',
+    color:'#ffffff',
     fontWeight:'bold',
-    marginTop:150,
-    fontSize:40,
+    //marginTop:150,
+    fontSize:25,
     //backgroundColor:'#FFF000',
-    marginLeft:15,
-    marginRight:15
+    //marginLeft:15,
+    //marginRight:15
     //width:50
   },
   recordTextContainer:{
     //width:50
   },
-  stopText:{
-    textAlign:'center',
-    color:'#009900',
-    fontWeight:'bold',
-    fontSize:40
-  },
+
   recordingSubHead:{
     textAlign:'center',
     color:'#FF0000',

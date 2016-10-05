@@ -18,12 +18,33 @@ const {
 class Initials extends React.Component{
   constructor(props) {
     super(props)
+
+    this.state = {
+      initials: ''
+    }
+  }
+
+  clearSignature(){
+    console.log('clearSignature');
+    this._initials.setNativeProps({text: ""});
+    this.state.initials = "";
   }
 
   navSecond(){
-    this.props.navigator.push({
-        id: 'audiorecord'
+    if(this.state.initials.length < 2)
+    {
+      //too short
+      console.log('initials too short');
+      this._initialsContainer.setNativeProps({style: styles.initialsError});
+    }
+    else {
+      this.props.navigator.push({
+        id: 'audiorecord',
+        passProps: {
+              initials: this.state.initials
+          }
       })
+    }
 
   }
 
@@ -34,21 +55,21 @@ class Initials extends React.Component{
           <View >
             <Image source={require('./img/blueArrow.png')}  style={styles.splashIcons}/>
           </View>
-          <View style={styles.initialsContainer}>
+          <View style={styles.initialsContainer} ref={component => this._initialsContainer = component}>
             <Image source={require('./img/InitialsX.png')}  style={styles.InitalsX}/>
             <TextInput
-              ref={component => this._phoneNumber = component}
+              ref={component => this._initials = component}
               style={styles.phonenumber}
               placeholder=""
               placeholderTextColor="#ffffff"
-              onChangeText={phoneNumber => this.setState({phoneNumber})}
+              onChangeText={initials => this.setState({initials})}
               />
           </View>
           <View style={styles.buttonContainer}>
-            <TouchableHighlight style={styles.clearSignature}>
+            <TouchableHighlight style={styles.clearSignature} onPress={this.clearSignature.bind(this)}>
               <Text style={styles.clearSignatureText}>Clear Signature</Text>
             </TouchableHighlight>
-            <TouchableHighlight style={styles.agree}>
+            <TouchableHighlight style={styles.agree} onPress={this.navSecond.bind(this)}>
               <Text style={styles.agreeText}>I Agree</Text>
             </TouchableHighlight>
           </View>
@@ -57,10 +78,6 @@ class Initials extends React.Component{
     );
   }
 }
-
-//<TouchableHighlight onPress={this.navSecond.bind(this)} style={styles.recordButtonContainer}>
-//  <Text style={styles.recordButton}>Start Recording</Text>
-//</TouchableHighlight>
 
 var styles = StyleSheet.create({
   container: {
@@ -76,6 +93,10 @@ var styles = StyleSheet.create({
     marginTop:200,
     flexDirection:'row'
   },
+  initialsError:{
+    borderBottomColor:'#ff0000',
+    borderBottomWidth:4
+  },
   InitalsX:{
     width:30,
     height:30,
@@ -85,7 +106,7 @@ var styles = StyleSheet.create({
   phonenumber: {
     width:600,
     height:70,
-    fontFamily:'Chalkduster',
+    fontFamily:'SavoyeLetPlain',
     //borderColor: '#000000',
     //borderWidth: 2,
     //marginTop:40,
@@ -99,10 +120,11 @@ var styles = StyleSheet.create({
     flexDirection:'row'
   },
   clearSignature:{
-    width:400,
+    width:460,
     height:60,
     borderColor:'#ffffff',
-    borderWidth:5
+    borderWidth:5,
+    paddingTop:5
   },
   clearSignatureText:{
     fontSize:30,
@@ -110,10 +132,11 @@ var styles = StyleSheet.create({
     textAlign:'center'
   },
   agree:{
-    width:400,
+    width:460,
     height:60,
     backgroundColor:'#ffffff',
-    marginLeft:20
+    marginLeft:50,
+    paddingTop:9
   },
   agreeText:{
     fontSize:30,
@@ -125,7 +148,7 @@ var styles = StyleSheet.create({
     flexDirection:'row'
   },
   containerWidth:{
-    width:800
+    width:975
   },
   splashIcons:{
     width:164,
