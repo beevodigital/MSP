@@ -68,6 +68,9 @@ class TakePictures extends React.Component{
   render() {
     return (
       <View style={styles.container}>
+        <View style={styles.pictureBanner}>
+
+        </View>
         <Camera
           ref={(cam) => {
             this.camera = cam;
@@ -80,7 +83,7 @@ class TakePictures extends React.Component{
           captureTarget={Camera.constants.CaptureTarget.disk}>
 
           <View style={styles.takingPicturesCTA}>
-            <Text style={styles.takingPicureText}>Get Ready! Smile!</Text>
+            <Text style={styles.takingPicureText}>Get Ready!</Text>
             { this.state.countdownStarted
                 ? (<Countdown ref={(c) => { this.countdown = c }} onComplete={this.handleEnd} count={3}>
                     <CountdownOverlay countdownText={styles.takingPictureCountdownText}/>
@@ -133,8 +136,12 @@ class TakePictures extends React.Component{
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection:'row'
+    //flexDirection:'row'
     //backgroundColor: '#C9C9C9',
+  },
+  pictureBanner:{
+    backgroundColor:'#3f85fc',
+    height:150
   },
   preview: {
     flex: 1,
@@ -152,17 +159,17 @@ var styles = StyleSheet.create({
     margin: 40
   },
   takingPicturesCTA:{
-    borderColor:'#009900',
-    borderWidth:6,
+    //borderColor:'#009900',
+    //borderWidth:6,
     width:260,
     height:260,
-    borderRadius: 260/2,
+    //borderRadius: 260/2,
     paddingTop:85,
     marginBottom:50
   },
   takingPicureText:{
     textAlign:'center',
-    color:'#009900',
+    color:'#ffffff',
     fontWeight:'bold',
     fontSize:40,
     //backgroundColor:'#FFF000',
@@ -172,7 +179,7 @@ var styles = StyleSheet.create({
   },
   takingPictureCountdownText:{
     textAlign:'center',
-    color:'#009900',
+    color:'#ffffff',
     fontWeight:'bold',
     fontSize:30,
     //backgroundColor:'#FFF000',

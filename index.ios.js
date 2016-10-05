@@ -36,7 +36,7 @@ class MSP extends React.Component{
     return (
       <Navigator
         style={styles.container}
-        initialRoute={{id: 'audiorecord', index: 0}}
+        initialRoute={{id: 'takepictures', index: 0}}
         renderScene={this.navigatorRenderScene}/>
     );
   }
