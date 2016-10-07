@@ -69,7 +69,17 @@ class TakePictures extends React.Component{
     return (
       <View style={styles.container}>
         <View style={styles.pictureBanner}>
-
+          <View style={styles.pictureBannerLeft}>
+            <Image source={require('./img/blueArrowDown.png')}  style={styles.pictureBannerLeftBlueArrowDown}/>
+            <Image source={require('./img/cameraIcon.png')}  style={styles.pictureBannerLeftCameraIcon}/>
+          </View>
+          <View style={styles.pictureBannerMiddle}>
+            <Text style={styles.pictureBannerMiddleBoldText}>Smile</Text>
+            <Text style={styles.pictureBannerMiddleRegularText}>Sonreir</Text>
+          </View>
+          <View style={styles.pictureBallerRight}>
+            <Image source={require('./img/blueArrowDown.png')}  style={styles.pictureBallerRightBlueArrowDown}/>
+          </View>
         </View>
         <Camera
           ref={(cam) => {
@@ -141,7 +151,45 @@ var styles = StyleSheet.create({
   },
   pictureBanner:{
     backgroundColor:'#3f85fc',
-    height:150
+    height:150,
+    flexDirection:'row'
+  },
+  pictureBannerLeft:{
+    flexDirection:'row',
+    flex: 1,
+    padding:25
+  },
+  pictureBannerLeftBlueArrowDown:{
+    width:91,
+    height:101
+  },
+  pictureBannerLeftCameraIcon:{
+    width:102,
+    height:101,
+    marginLeft:25
+  },
+  pictureBannerMiddle:{
+    flex: 1,
+    alignItems:'center',
+    padding:25
+  },
+  pictureBannerMiddleBoldText:{
+    color:'#ffffff',
+    fontSize:50,
+    fontWeight:'bold'
+  },
+  pictureBannerMiddleRegularText:{
+    color:'#ffffff',
+    fontSize:50,
+  },
+  pictureBallerRight:{
+    flex: 1,
+    alignItems:'flex-end',
+    padding:25
+  },
+  pictureBallerRightBlueArrowDown:{
+    width:91,
+    height:101
   },
   preview: {
     flex: 1,
