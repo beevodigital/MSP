@@ -46,38 +46,38 @@ class ThankYouPage extends React.Component{
 
   render() {
     return (
-      <View style={styles.container}>
-        <Image source={require('./img/see28.jpg')} style={styles.backgroundImage} >
-          <View style={styles.halfcolumncontainer}>
-            <View style={styles.halfcolumn}>
-            { this.state.countdownStarted
-                ? (<Countdown style="display:none" ref={(c) => { this.countdown = c }} onComplete={this.handleEnd} count={15}>
-                    <CountdownOverlay countdownText={styles.takingPictureCountdownText}/>
-                  </Countdown>)
-                : null }
-            </View>
-            <View style={styles.halfcolumn, styles.whitebackground}>
-              <View style={styles.wrapText}>
-                <Text style={styles.mainFont}>
-                  Thank you for recording your story!{"\n"}{"\n"}
-                </Text>
-                <Text style={styles.mainFont}>
-                  arts@msp will be forwarding your images in the coming week and will notify you if and when your story and image are curated for the program.  If you would like to leave another story, the main page will return in 30 seconds. Travel safely!{"\n"}{"\n"}
-                </Text>
-
-
-                <Text style={styles.mainFont}>
-                  By leaving your story, arts@msp will retain the rights to curate your images and stories in future exhibits and for promotional purposes{"\n"}{"\n"}
-                </Text>
-              </View>
-
-            </View>
-
-
+      <TouchableHighlight style={styles.container}>
+        <View style={styles.containerWidth}>
+        { this.state.countdownStarted
+            ? (<Countdown style="display:none" ref={(c) => { this.countdown = c }} onComplete={this.handleEnd} count={15}>
+                <CountdownOverlay countdownText={styles.takingPictureCountdownText}/>
+              </Countdown>)
+            : null }
+          <View >
+            <Image source={require('./img/SplashIcons.png')}  style={styles.splashIcons}/>
           </View>
-        </Image>
-
-      </View>
+          <View>
+            <Text style={styles.boldHeadline}>
+              Hello!
+            </Text>
+            <Text style={styles.lightHeadline}>
+              !Hola!
+            </Text>
+          </View>
+          <View>
+            <Text style={styles.subHead}>Want to make you own shotfilm for See 18, MSP's film screening room?</Text>
+          </View>
+          <View style={styles.flexRow}>
+            <Image source={require('./img/fingerIcon.png')}  style={styles.fingerIcon}/>
+            <Text style={styles.CTAtext}>
+              Tap Anywhere to start
+            </Text>
+          </View>
+          <View>
+            <Text style={styles.legalText}>By agreeing below, you transfer all rights, including the copyright, in your StoryBooth submission to Airport Foundation MSP. You also agree that the Airport Foundation MSP, the Metropolitan Airports Commission, or any successor to either, may display, reproduce, edit and distribute your travel story, including your name, likeness, and any photos taken during your participation in StoryBooth, in all media for any purpose.</Text>
+          </View>
+        </View>
+      </TouchableHighlight>
     );
   }
 
@@ -93,19 +93,49 @@ class ThankYouPage extends React.Component{
 var styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection:'row'
+    padding:25
+    //flexDirection:'row'
     //backgroundColor: '#C9C9C9',
   },
-  makeWhite:{
-    backgroundColor:'#FFFFFF'
+  flexRow:{
+    flexDirection:'row'
+  },
+  containerWidth:{
+    width:800
+  },
+  splashIcons:{
+    width:411,
+    height:182
+  },
+  boldHeadline:{
+    fontSize:130,
+    fontWeight:'bold',
+    color:'#3f85fc'
+  },
+  lightHeadline:{
+    fontSize:130,
+    color:'#3f85fc'
+  },
+  subHead:{
+    fontSize:40,
+    color:'#3f85fc'
+  },
+  CTAtext:{
+    color:'#3f85fc',
+    paddingTop:15,
+    fontSize:20
+  },
+  fingerIcon:{
+    width:53,
+    height:53
+  },
+  legalText:{
+    fontSize:12,
+    color:'#3f85fc'
   },
   mainFont:{
     fontSize:30,
     textAlign:'center'
-  },
-  backgroundImage:{
-    flex:1,
-    resizeMode:'stretch'
   },
   whitebackground:{
     backgroundColor: 'rgba(255,255,255,0.9)',
@@ -115,13 +145,14 @@ var styles = StyleSheet.create({
     marginTop:20
   },
   halfcolumncontainer:{
-    flexDirection:'row'
+    //flexDirection:'row',
+    alignItems: 'flex-end'
   },
   wrapText:{
     flexDirection:'column',
     width:600
   },
-  halfcolumn:{
+  columnRight:{
     flex:1,
     flexWrap:'wrap',
     flexDirection:'row'
@@ -131,55 +162,32 @@ var styles = StyleSheet.create({
     backgroundColor:'#CCCCCC',
     width:500,
     padding:25,
-    margin:25
+    margin:25,
+    fontSize:20
   },
   phonenumber: {
-    width:200,
-    height:25,
+    width:600,
+    height:70,
     borderColor: '#000000',
-    borderWidth: 1,
-    marginTop:20,
-    marginBottom:20,
-    padding:5
+    borderWidth: 2,
+    marginTop:40,
+    marginBottom:40,
+    padding:5,
+    color:'#666666',
+    fontSize:30
   },
-  recordButtonContainer:{
+  phoneNumberError:{
     borderColor:'#FF0000',
-    borderWidth:2,
-    marginBottom:20
-  },
-  recordButton:{
-    textAlign:'center',
-    color:'#FF0000',
-    padding:5
-  },
-  button: {
-    height: 32,
-    backgroundColor: '#CCCCCC',
-  },
-  text: {
-    fontSize: 16,
-    textAlign: 'center',
-    margin: 10,
+    borderWidth:3
   },
   image: {
     width: 100,
     height: 100,
   },
-  preview: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    height: Dimensions.get('window').height,
-    width: Dimensions.get('window').width
+  backgroundImage:{
+    flex:1,
+    resizeMode:'stretch'
   },
-  capture: {
-    flex: 0,
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    color: '#000',
-    padding: 10,
-    margin: 40
-  }
 });
 
 module.exports = ThankYouPage;
